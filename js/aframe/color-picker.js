@@ -4,7 +4,8 @@ AFRAME.registerComponent('color-picker', {
     dependencies: ['hand-tracking-mesh'],
 
     init: function() {
-        let picker = function(texture, color) {
+
+        let picker = function(ctx, texture, color) {
             let picker = document.createElement("a-box");
             picker.setAttribute("width", 0.02);
             picker.setAttribute("height", 0.02);
@@ -13,6 +14,19 @@ AFRAME.registerComponent('color-picker', {
                 color: "white",
                 src: texture
             });
+            picker.addEventListener('raycaster-intersected', evt => {
+                picker.setAttribute('scale', '1.2 1.2 1.2');
+                ctx.painter.setAttribute('painter', {
+                    color: color
+                });
+                ctx.room.setAttribute("material", {
+                    src: texture
+                });
+            });
+            picker.addEventListener('raycaster-intersected-cleared', evt => {
+                picker.setAttribute('scale', '1 1 1');
+            });
+            ctx.el.sceneEl.appendChild(picker);
             return picker
         }
 
@@ -21,51 +35,9 @@ AFRAME.registerComponent('color-picker', {
         this.painter = document.querySelector("[painter]");
         this.room = document.querySelector("#room");
 
-        this.picker1 = picker("textures/triangle.jpg", "white");
-        this.picker1.addEventListener('raycaster-intersected', evt => {
-            this.picker1.setAttribute('scale', '1.2 1.2 1.2');
-            this.painter.setAttribute('painter', {
-                color: "white"
-            });
-            this.room.setAttribute("material", {
-                src: "textures/triangle.jpg"
-            });
-        });
-        this.picker1.addEventListener('raycaster-intersected-cleared', evt => {
-            this.picker1.setAttribute('scale', '1 1 1');
-        });
-        this.el.sceneEl.appendChild(this.picker1);
-
-        this.picker2 = picker("textures/hexagon.jpg", "red");
-        this.picker2.addEventListener('raycaster-intersected', evt => {
-            this.picker2.setAttribute('scale', '1.2 1.2 1.2');
-            this.painter.setAttribute('painter', {
-                color: "red"
-            });
-            this.room.setAttribute("material", {
-                src: "textures/hexagon.jpg"
-            });
-        });
-        this.picker2.addEventListener('raycaster-intersected-cleared', evt => {
-            this.picker2.setAttribute('scale', '1 1 1');
-        });
-        this.el.sceneEl.appendChild(this.picker2);
-
-        this.picker3 = picker("textures/mosaic.jpg", "black");
-        this.picker3.addEventListener('raycaster-intersected', evt => {
-            this.picker3.setAttribute('scale', '1.2 1.2 1.2');
-            this.room.setAttribute("material", {
-                src: "textures/mosaic.jpg"
-            });
-            this.painter.setAttribute('painter', {
-                color: "black"
-            })
-        });
-        this.picker3.addEventListener('raycaster-intersected-cleared', evt => {
-            this.picker3.setAttribute('scale', '1 1 1');
-        });
-        this.el.sceneEl.appendChild(this.picker3);
-
+        this.picker1 = picker(this, "textures/triangle.jpg", "white");
+        this.picker2 = picker(this, "textures/hexagon.jpg", "red");
+        this.picker3 = picker(this, "textures/mosaic.jpg", "black");
     },
 
     tick: function() {
