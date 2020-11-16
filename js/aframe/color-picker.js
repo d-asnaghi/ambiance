@@ -1,62 +1,64 @@
 
-AFRAME.registerComponent('painter-color-picker', {
+AFRAME.registerComponent('color-picker', {
 
     dependencies: ['hand-tracking-mesh'],
 
     init: function() {
+        let picker = function(texture, color) {
+            let picker = document.createElement("a-box");
+            picker.setAttribute("width", 0.02);
+            picker.setAttribute("height", 0.02);
+            picker.setAttribute("depth", 0.02);
+            picker.setAttribute("material", {
+                color: "white",
+                src: texture
+            });
+            return picker
+        }
+
         this.handTracking = this.el.components['hand-tracking-mesh'];
 
         this.painter = document.querySelector("[painter]");
-        this.texture = document.querySelector("#room-texture");
+        this.room = document.querySelector("#room");
 
-        this.picker1 = document.createElement("a-box");
-        this.picker1.setAttribute("width", 0.02);
-        this.picker1.setAttribute("height", 0.02);
-        this.picker1.setAttribute("depth", 0.02);
-        this.picker1.setAttribute("material", {
-            color: "white"
-        });
+        this.picker1 = picker("textures/triangle.jpg", "white");
         this.picker1.addEventListener('raycaster-intersected', evt => {
             this.picker1.setAttribute('scale', '1.2 1.2 1.2');
             this.painter.setAttribute('painter', {
                 color: "white"
-            })
+            });
+            this.room.setAttribute("material", {
+                src: "textures/triangle.jpg"
+            });
         });
         this.picker1.addEventListener('raycaster-intersected-cleared', evt => {
             this.picker1.setAttribute('scale', '1 1 1');
         });
         this.el.sceneEl.appendChild(this.picker1);
 
-        this.picker2 = document.createElement("a-box");
-        this.picker2.setAttribute("width", 0.02);
-        this.picker2.setAttribute("height", 0.02);
-        this.picker2.setAttribute("depth", 0.02);
-        this.picker2.setAttribute("material", {
-            color: "black"
-        });
+        this.picker2 = picker("textures/hexagon.jpg", "red");
         this.picker2.addEventListener('raycaster-intersected', evt => {
             this.picker2.setAttribute('scale', '1.2 1.2 1.2');
             this.painter.setAttribute('painter', {
-                color: "black"
-            })
+                color: "red"
+            });
+            this.room.setAttribute("material", {
+                src: "textures/hexagon.jpg"
+            });
         });
         this.picker2.addEventListener('raycaster-intersected-cleared', evt => {
             this.picker2.setAttribute('scale', '1 1 1');
         });
         this.el.sceneEl.appendChild(this.picker2);
 
-        this.picker3 = document.createElement("a-box");
-        this.picker3.setAttribute("width", 0.02);
-        this.picker3.setAttribute("height", 0.02);
-        this.picker3.setAttribute("depth", 0.02);
-        this.picker3.setAttribute("material", {
-            color: "#ff0000"
-        });
+        this.picker3 = picker("textures/mosaic.jpg", "black");
         this.picker3.addEventListener('raycaster-intersected', evt => {
             this.picker3.setAttribute('scale', '1.2 1.2 1.2');
-            this.texture.setAttribute('src', 'textures/mosaic.jpg');
+            this.room.setAttribute("material", {
+                src: "textures/mosaic.jpg"
+            });
             this.painter.setAttribute('painter', {
-                color: "#ff0000"
+                color: "black"
             })
         });
         this.picker3.addEventListener('raycaster-intersected-cleared', evt => {
