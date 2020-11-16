@@ -29,13 +29,7 @@
         groundColor: #333; groundColor2: #fff">
 
         <a-entity light="type: ambient; color: #ffffff; intensity: 1;" position="0 2 0"></a-entity>
-
-        <a-box id="room" position="0 1.95 0" scale="8 4 8"
-            material="
-            side: double;
-            opacity: 0.9;
-            emissivity: 0xFFF;">
-        </a-box>
+        <a-box id="room" position="0 1.95 0" scale="8 4 8" material="side: double; opacity: 0.9;"></a-box>
 
         <a-entity id="leftHand" class="hand" color-picker hand-tracking-mesh="hand: left" ></a-entity>
         <a-entity class="hand" finger-raycaster painter hand-tracking-mesh="hand: right" hand-tracking-gestures-mesh></a-entity>
