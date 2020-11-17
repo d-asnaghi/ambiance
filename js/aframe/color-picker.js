@@ -5,17 +5,15 @@ AFRAME.registerComponent("color-picker", {
     let setRoomSides = function (room, sides) {
       walls = room.querySelector("#walls");
       roof = room.querySelector("#roof");
-    //   walls.setAttribute("material", {
-    //     repeat: sides,
-    //   });
       walls.setAttribute("segments-radial", sides);
       roof.setAttribute("segments", sides);
     };
 
-    let setRoomTexture = function (room, texture) {
+    let setRoomTexture = function (room, repeat, texture) {
       walls = room.querySelector("#walls");
       roof = room.querySelector("#roof");
       walls.setAttribute("material", {
+        repeat: { x: repeat, y: 1 },
         src: texture,
       });
       roof.setAttribute("material", {
@@ -34,8 +32,8 @@ AFRAME.registerComponent("color-picker", {
       });
       picker.addEventListener("raycaster-intersected", (evt) => {
         picker.setAttribute("scale", "1.2 1.2 1.2");
-        setRoomTexture(ctx.room, texture);
         setRoomSides(ctx.room, sides);
+        setRoomTexture(ctx.room, sides, texture);
       });
       picker.addEventListener("raycaster-intersected-cleared", (evt) => {
         picker.setAttribute("scale", "1 1 1");
