@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clinical trial</title>
     <script src="js/aframe-master.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
@@ -13,28 +12,54 @@
     <script src="js/aframe/painter.js"></script>
     <script src="js/aframe/color-picker.js"></script>
     <script src="js/aframe/finger-raycaster.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <a-scene
-        webxr="optionalFeatures: hand-tracking"
-        environment="
-        groundTexture: none;
-        grid: 1x1; gridColor: #222;
-        ground: flat;
-        lighting: none;
-        skyType: color; skyColor: #222;
-        fog: 0.97;
-        horizonColor: #222;
-        groundColor: #333; groundColor2: #fff">
+      webxr="optionalFeatures: hand-tracking"
+      environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; lighting: none; skyType: color; skyColor: #222; fog: 0.97; horizonColor: #222; groundColor: #333; groundColor2: #fff"
+    >
+      <a-entity
+        light="type: ambient; color: #ffffff; intensity: 1;"
+        position="0 2 0"
+      ></a-entity>
+      <a-entity id="room">
+        <a-cylinder
+          id="walls"
+          open-ended="1"
+          rotation="0 45 0"
+          position="0 4 0"
+          radius="8"
+          height="8"
+          material="side: double; opacity: 0.9;"
+          repeat="4"
+          segments-radial="4"
+        >
+        </a-cylinder>
+        <a-circle
+          id="roof"
+          position="0 8 0"
+          radius="8"
+          rotation="90 -45 0"
+          material="side: double; opacity: 0.9;"
+          segments="4"
+        >
+        </a-circle>
+      </a-entity>
 
-        <a-entity light="type: ambient; color: #ffffff; intensity: 1;" position="0 2 0"></a-entity>
-        <a-box id="room" position="0 1.95 0" scale="8 4 8" material="side: double; opacity: 0.9;"></a-box>
-
-        <a-entity id="leftHand" class="hand" color-picker hand-tracking-mesh="hand: left" ></a-entity>
-        <a-entity class="hand" finger-raycaster painter hand-tracking-mesh="hand: right" hand-tracking-gestures-mesh></a-entity>
-
+      <a-entity
+        id="leftHand"
+        class="hand"
+        color-picker
+        hand-tracking-mesh="hand: left"
+      ></a-entity>
+      <a-entity
+        class="hand"
+        finger-raycaster
+        painter
+        hand-tracking-mesh="hand: right"
+        hand-tracking-gestures-mesh
+      ></a-entity>
     </a-scene>
-</body>
-
+  </body>
 </html>
