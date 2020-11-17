@@ -9,7 +9,7 @@ AFRAME.registerComponent('hand-tracking-mesh', {
 
     init: function() {
         this.createMesh = this.createMesh.bind(this);
-        this.modelUrl = this.data.hand === 'right' ? '/models/r_hand.glb' : '/models/l_hand.glb' ;
+        this.modelUrl = this.data.hand === 'right' ? 'models/r_hand.glb' : 'models/l_hand.glb' ;
 
         const prefix = this.data.hand === 'right' ? 'b_r_' : 'b_l_'
         this.mapping = [];
@@ -66,7 +66,7 @@ AFRAME.registerComponent('hand-tracking-mesh', {
             this.bones = this.skinnedMesh.skeleton.bones;
             this.skinnedMesh.frustumCulled = false;
             this.skinnedMesh.material = new THREE.MeshStandardMaterial({skinning: true, color: this.data.color});
-	
+
             this.el.sceneEl.object3D.add(this.mesh);
         });
     },
