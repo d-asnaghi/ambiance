@@ -2,26 +2,8 @@ AFRAME.registerComponent("color-picker", {
   dependencies: ["hand-tracking-mesh"],
 
   init: function () {
-    let setRoomSides = function (room, sides) {
-      walls = room.querySelector("#walls");
-      roof = room.querySelector("#roof");
-      walls.setAttribute("segments-radial", sides);
-      roof.setAttribute("segments", sides);
-    };
 
-    let setRoomTexture = function (room, repeat, texture) {
-      walls = room.querySelector("#walls");
-      roof = room.querySelector("#roof");
-      walls.setAttribute("material", {
-        repeat: { x: repeat, y: 1 },
-        src: texture,
-      });
-      roof.setAttribute("material", {
-        src: texture,
-      });
-    };
-
-    let roomPicker = function (ctx, texture, sides) {
+    let roomPicker = function (el, room, texture, sides) {
       let picker = document.createElement("a-cylinder");
       picker.setAttribute("radius", 0.02);
       picker.setAttribute("height", 0.005);
@@ -32,24 +14,23 @@ AFRAME.registerComponent("color-picker", {
       });
       picker.addEventListener("raycaster-intersected", (evt) => {
         picker.setAttribute("scale", "1.2 1.2 1.2");
-        setRoomSides(ctx.room, sides);
-        setRoomTexture(ctx.room, sides, texture);
+        room.setAttribute("room", "sides", sides);
+        room.setAttribute("room", "texture", texture);
       });
       picker.addEventListener("raycaster-intersected-cleared", (evt) => {
         picker.setAttribute("scale", "1 1 1");
       });
-      ctx.el.sceneEl.appendChild(picker);
+      el.sceneEl.appendChild(picker);
       return picker;
     };
 
     this.handTracking = this.el.components["hand-tracking-mesh"];
-
     this.painter = document.querySelector("[painter]");
-    this.room = document.querySelector("#room");
+    this.room = document.querySelector("[room]");
 
-    this.picker1 = roomPicker(this, "textures/tiles.jpg", 3);
-    this.picker2 = roomPicker(this, "textures/hexagon.jpg", 6);
-    this.picker3 = roomPicker(this, "textures/mosaic.jpg", 8);
+    this.picker1 = roomPicker(this.el, this.room, "textures/tiles.jpg", 3);
+    this.picker2 = roomPicker(this.el, this.room, "textures/hexagon.jpg", 6);
+    this.picker3 = roomPicker(this.el, this.room, "textures/mosaic.jpg", 8);
   },
 
   tick: function () {
