@@ -18,12 +18,25 @@
   <body>
     <a-scene
       webxr="optionalFeatures: hand-tracking"
-      environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; lighting: none; skyType: color; skyColor: #222; fog: 0.97; horizonColor: #222; groundColor: #333; groundColor2: #fff"
+      environment="groundTexture: none;
+        grid: 1x1; gridColor: #222;
+        ground: flat;
+        lighting: none;
+        skyType: color;
+        skyColor: #222;
+        fog: 0.97;
+        horizonColor: #222;
+        groundColor: #333;
+        groundColor2: #fff"
     >
-      <a-entity
-        light="type: ambient; color: #ffffff; intensity: 1;"
-        position="0 2 0"
-      ></a-entity>
+      <a-assets>
+        <img id="tiles" src="textures/tiles.jpg" />
+        <img id="triangle" src="textures/triangle.jpg" />
+        <img id="hexagon" src="textures/hexagon.jpg" />
+        <img id="mosaic" src="textures/mosaic.jpg" />
+      </a-assets>
+
+      <a-entity light="type: ambient; color: #ffffff;"></a-entity>
 
       <a-entity room></a-entity>
 
@@ -40,7 +53,6 @@
         hand-tracking-mesh="hand: right"
         hand-tracking-gestures-mesh
       ></a-entity>
-
     </a-scene>
   </body>
 </html>

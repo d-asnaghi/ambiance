@@ -41,10 +41,10 @@ AFRAME.registerComponent("color-picker", {
       });
     };
 
-    this.picker1 = texturePicker("textures/tiles.jpg");
-    this.picker2 = texturePicker("textures/triangle.jpg");
-    this.picker3 = texturePicker("textures/hexagon.jpg");
-    this.picker4 = texturePicker("textures/mosaic.jpg");
+    this.picker1 = texturePicker("#tiles");
+    this.picker2 = texturePicker("#triangle");
+    this.picker3 = texturePicker("#hexagon");
+    this.picker4 = texturePicker("#mosaic");
 
     this.picker5 = sidePicker(3);
     this.picker6 = sidePicker(4);
