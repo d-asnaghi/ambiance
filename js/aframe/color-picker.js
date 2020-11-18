@@ -41,22 +41,39 @@ AFRAME.registerComponent("color-picker", {
       });
     };
 
-    this.picker1 = texturePicker("#tiles");
-    this.picker2 = texturePicker("#triangle");
-    this.picker3 = texturePicker("#hexagon");
-    this.picker4 = texturePicker("#mosaic");
+    let colorPicker = (color) => {
+      let shape = document.createElement("a-cylinder");
+      shape.setAttribute("radius", 0.02);
+      shape.setAttribute("height", 0.005);
+      shape.setAttribute("material", "color", color);
+      return picker(shape, () => {
+        this.painter.setAttribute("painter", "color", color);
+      });
+    };
 
-    this.picker5 = sidePicker(3);
-    this.picker6 = sidePicker(4);
-    this.picker7 = sidePicker(5);
-    this.picker8 = sidePicker(6);
+    this.menuItems = [];
+
+    this.menuItems.push(sidePicker(3));
+    this.menuItems.push(sidePicker(4));
+    this.menuItems.push(sidePicker(5));
+    this.menuItems.push(sidePicker(6));
+
+    this.menuItems.push(texturePicker("#tiles"));
+    this.menuItems.push(texturePicker("#triangle"));
+    this.menuItems.push(texturePicker("#hexagon"));
+    this.menuItems.push(texturePicker("#mosaic"));
+
+    this.menuItems.push(colorPicker("#000000"));
+    this.menuItems.push(colorPicker("#8800ff"));
+    this.menuItems.push(colorPicker("#0055ff"));
+    this.menuItems.push(colorPicker("#ffffff"));
   },
 
   tick: function () {
     if (this.handTracking.jointsLoaded() && this.handTracking.mesh != null) {
       const joint = this.handTracking.getJoints()[0];
 
-      let place = (object, joint, x, y, z) => {
+      let place = (object, x, y, z) => {
         object.setAttribute("visible", joint.visible);
         object.object3D.position.copy(
           joint.position.clone().add(new THREE.Vector3(0, 1.5, 0))
@@ -75,15 +92,16 @@ AFRAME.registerComponent("color-picker", {
         object.object3D.translateZ(z);
       };
 
-      place(this.picker1, joint, -0.1, 0.01, 0.05);
-      place(this.picker2, joint, -0.15, 0.01, 0.05);
-      place(this.picker3, joint, -0.2, 0.01, 0.05);
-      place(this.picker4, joint, -0.25, 0.01, 0.05);
+      let menu = (columns, menu_x, menu_y, menu_z) => {
+        this.menuItems.forEach((element, index) => {
+          var x = menu_x - 0.05 * (1 + (index % columns));
+          var y = menu_y;
+          var z = menu_z * (1 + Math.floor(index / columns));
+          place(element, x, y, z);
+        });
+      };
 
-      place(this.picker5, joint, -0.1, 0.01, 0.1);
-      place(this.picker6, joint, -0.15, 0.01, 0.1);
-      place(this.picker7, joint, -0.2, 0.01, 0.1);
-      place(this.picker8, joint, -0.25, 0.01, 0.1);
+      menu(4, -0.05, 0.01, 0.05);
     }
   },
 });
