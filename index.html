@@ -34,9 +34,15 @@
         <img id="triangle" src="textures/triangle.jpg" />
         <img id="hexagon" src="textures/hexagon.jpg" />
         <img id="mosaic" src="textures/mosaic.jpg" />
+        <img id="painting" src="textures/painting.png" />
       </a-assets>
 
-      <a-entity light="type: ambient; color: #ffffff;"></a-entity>
+      <a-entity
+        light="type: point; color: #aaaaaa; intensity: 0.6; castShadow: true"
+        position="0 1 0"
+      ></a-entity>
+      <a-entity light="type: ambient; color: #ffffff; intensity: 0.2;"></a-entity>
+
 
       <a-entity room></a-entity>
 

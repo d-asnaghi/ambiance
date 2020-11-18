@@ -57,16 +57,19 @@ AFRAME.registerComponent("color-picker", {
     this.menuItems.push(sidePicker(4));
     this.menuItems.push(sidePicker(5));
     this.menuItems.push(sidePicker(6));
+    this.menuItems.push(sidePicker(7));
 
     this.menuItems.push(texturePicker("#tiles"));
     this.menuItems.push(texturePicker("#triangle"));
     this.menuItems.push(texturePicker("#hexagon"));
     this.menuItems.push(texturePicker("#mosaic"));
+    this.menuItems.push(texturePicker("#painting"));
 
-    this.menuItems.push(colorPicker("#000000"));
-    this.menuItems.push(colorPicker("#8800ff"));
-    this.menuItems.push(colorPicker("#0055ff"));
-    this.menuItems.push(colorPicker("#ffffff"));
+    this.menuItems.push(colorPicker("#264653"));
+    this.menuItems.push(colorPicker("#2a9d8f"));
+    this.menuItems.push(colorPicker("#e9c46a"));
+    this.menuItems.push(colorPicker("#f4a261"));
+    this.menuItems.push(colorPicker("#e76f51"));
   },
 
   tick: function () {
@@ -94,14 +97,14 @@ AFRAME.registerComponent("color-picker", {
 
       let menu = (columns, menu_x, menu_y, menu_z) => {
         this.menuItems.forEach((element, index) => {
-          var x = menu_x - 0.05 * (1 + (index % columns));
+          var x = menu_x - 0.045 * (1 + (index % columns));
           var y = menu_y;
-          var z = menu_z * (1 + Math.floor(index / columns));
+          var z = menu_z - 0.05 * (1 + Math.floor(index / columns));
           place(element, x, y, z);
         });
       };
 
-      menu(4, -0.05, 0.01, 0.05);
+      menu(5, -0.05, 0.01, 0.2);
     }
   },
 });
