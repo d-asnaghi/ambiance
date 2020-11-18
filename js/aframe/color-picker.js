@@ -19,13 +19,15 @@ AFRAME.registerComponent("color-picker", {
       return picker;
     };
 
-    let texturePicker = (texture) => {
+    let texturePicker = (texture, normal, repeat) => {
       let shape = document.createElement("a-cylinder");
       shape.setAttribute("radius", 0.02);
       shape.setAttribute("height", 0.005);
       shape.setAttribute("material", "color", "white");
       shape.setAttribute("material", "src", texture);
       return picker(shape, () => {
+        this.room.setAttribute("room", "repeat", repeat);
+        this.room.setAttribute("room", "normal", normal);
         this.room.setAttribute("room", "texture", texture);
       });
     };
@@ -59,11 +61,11 @@ AFRAME.registerComponent("color-picker", {
     this.menuItems.push(sidePicker(6));
     this.menuItems.push(sidePicker(7));
 
-    this.menuItems.push(texturePicker("#tiles"));
-    this.menuItems.push(texturePicker("#triangle"));
-    this.menuItems.push(texturePicker("#hexagon"));
-    this.menuItems.push(texturePicker("#mosaic"));
-    this.menuItems.push(texturePicker("#painting"));
+    this.menuItems.push(texturePicker("#tiles", "", 1));
+    this.menuItems.push(texturePicker("#triangle", "", 4));
+    this.menuItems.push(texturePicker("#hexagon", "", 1));
+    this.menuItems.push(texturePicker("#mosaic", "", 1));
+    this.menuItems.push(texturePicker("#painting", "", 1));
 
     this.menuItems.push(colorPicker("#264653"));
     this.menuItems.push(colorPicker("#2a9d8f"));
