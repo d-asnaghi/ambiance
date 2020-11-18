@@ -95,16 +95,16 @@ AFRAME.registerComponent("color-picker", {
         object.object3D.translateZ(z);
       };
 
-      let menu = (columns, menu_x, menu_y, menu_z) => {
+      let menu = (columns, spacing, menu_x, menu_y, menu_z) => {
         this.menuItems.forEach((element, index) => {
-          var x = menu_x - 0.045 * (1 + (index % columns));
+          var x = menu_x - spacing * (1 + (index % columns));
           var y = menu_y;
-          var z = menu_z - 0.05 * (1 + Math.floor(index / columns));
+          var z = menu_z - spacing * (1 + Math.floor(index / columns));
           place(element, x, y, z);
         });
       };
 
-      menu(5, -0.05, 0.01, 0.2);
+      menu(5, 0.043, -0.05, 0.01, 0.18);
     }
   },
 });
