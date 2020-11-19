@@ -19,7 +19,10 @@ AFRAME.registerComponent("color-picker", {
       return picker;
     };
 
-    let texturePicker = (texture, normal, repeat) => {
+    let texturePicker = (texture, repeat, normal) => {
+      texture = texture || "";
+      repeat = repeat || 1;
+      normal = normal || "";
       let shape = document.createElement("a-cylinder");
       shape.setAttribute("radius", 0.02);
       shape.setAttribute("height", 0.005);
@@ -61,11 +64,11 @@ AFRAME.registerComponent("color-picker", {
     this.menuItems.push(sidePicker(6));
     this.menuItems.push(sidePicker(7));
 
-    this.menuItems.push(texturePicker("#tiles", "", 6));
-    this.menuItems.push(texturePicker("#triangle", "", 4));
-    this.menuItems.push(texturePicker("#hexagon", "", 1));
-    this.menuItems.push(texturePicker("#mosaic", "", 1));
-    this.menuItems.push(texturePicker("#painting", "", 1));
+    this.menuItems.push(texturePicker("#tiles", 6));
+    this.menuItems.push(texturePicker("#triangle", 2));
+    this.menuItems.push(texturePicker("#hexagon"));
+    this.menuItems.push(texturePicker("#mosaic"));
+    this.menuItems.push(texturePicker("#painting"));
 
     this.menuItems.push(colorPicker("#264653"));
     this.menuItems.push(colorPicker("#2a9d8f"));
@@ -98,7 +101,7 @@ AFRAME.registerComponent("color-picker", {
       };
 
       let menu = (columns, spacing, menu_x, menu_y, menu_z) => {
-        for (index=0; index < this.menuItems.length; index ++) {
+        for (index = 0; index < this.menuItems.length; index++) {
           element = this.menuItems[index];
           var x = menu_x - spacing * (1 + (index % columns));
           var y = menu_y;
