@@ -61,7 +61,7 @@ AFRAME.registerComponent("color-picker", {
     this.menuItems.push(sidePicker(6));
     this.menuItems.push(sidePicker(7));
 
-    this.menuItems.push(texturePicker("#tiles", "", 1));
+    this.menuItems.push(texturePicker("#tiles", "", 6));
     this.menuItems.push(texturePicker("#triangle", "", 4));
     this.menuItems.push(texturePicker("#hexagon", "", 1));
     this.menuItems.push(texturePicker("#mosaic", "", 1));
@@ -98,12 +98,13 @@ AFRAME.registerComponent("color-picker", {
       };
 
       let menu = (columns, spacing, menu_x, menu_y, menu_z) => {
-        this.menuItems.forEach((element, index) => {
+        for (index=0; index < this.menuItems.length; index ++) {
+          element = this.menuItems[index];
           var x = menu_x - spacing * (1 + (index % columns));
           var y = menu_y;
           var z = menu_z - spacing * (1 + Math.floor(index / columns));
           place(element, x, y, z);
-        });
+        }
       };
 
       menu(5, 0.043, -0.05, 0.01, 0.18);
