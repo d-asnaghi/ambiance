@@ -6,6 +6,8 @@ AFRAME.registerComponent("room", {
     repeat: { default: 1, type: "int" },
     texture: { default: "" },
     normal: { default: "" },
+    roughness: { default: 0.4, type: "float" },
+    metalness: { default: 0.2, type: "float" },
   },
 
   updateMaterial: function (element, sides) {
@@ -14,9 +16,12 @@ AFRAME.registerComponent("room", {
     element.setAttribute("material", "repeat", repeat);
     element.setAttribute("material", "normalMap", this.data.normal);
     element.setAttribute("material", "normalTextureRepeat", repeat);
+    element.setAttribute("material", "metalness", this.data.metalness);
+    element.setAttribute("material", "roughness", this.data.roughness);
   },
 
   init: function () {
+    // Walls.
     this.walls = document.createElement("a-cylinder");
     this.walls.setAttribute("material", "color", "white");
     this.walls.setAttribute("material", "side", "double");
@@ -32,7 +37,7 @@ AFRAME.registerComponent("room", {
     });
     this.walls.setAttribute("rotation", { x: 0, y: 45, z: 0 });
     this.el.sceneEl.appendChild(this.walls);
-
+    // Roof.
     this.roof = document.createElement("a-circle");
     this.roof.setAttribute("material", "color", "white");
     this.roof.setAttribute("material", "side", "double");
@@ -43,12 +48,28 @@ AFRAME.registerComponent("room", {
     this.roof.setAttribute("position", { x: 0, y: this.data.height, z: 0 });
     this.roof.setAttribute("rotation", { x: 90, y: -45, z: 0 });
     this.el.sceneEl.appendChild(this.roof);
+    // Floor
+    this.floor = document.createElement("a-circle");
+    this.floor.setAttribute("material", "color", "white");
+    this.floor.setAttribute("material", "side", "double");
+    this.updateMaterial(this.roof, 1);
+    this.floor.setAttribute("radius", this.data.radius);
+    this.floor.setAttribute("height", this.data.height);
+    this.floor.setAttribute("segments", this.data.sides);
+    this.floor.setAttribute("position", { x: 0, y: 0.01, z: 0 });
+    this.floor.setAttribute("rotation", { x: 90, y: -45, z: 0 });
+    this.el.sceneEl.appendChild(this.floor);
   },
 
   update: function () {
-    this.roof.setAttribute("segments", this.data.sides);
+    // Update the shape of the room.
     this.walls.setAttribute("segments-radial", this.data.sides);
+    this.floor.setAttribute("segments", this.data.sides);
+    this.roof.setAttribute("segments", this.data.sides);
+
+    // Update the material of the room.
     this.updateMaterial(this.walls, this.data.sides);
+    this.updateMaterial(this.floor, 1);
     this.updateMaterial(this.roof, 1);
   },
 });
