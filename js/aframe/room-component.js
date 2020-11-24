@@ -7,7 +7,7 @@ AFRAME.registerComponent("room", {
     texture: { default: "" },
     normal: { default: "" },
     roughness: { default: 0.6, type: "float" },
-    metalness: { default: 0.2, type: "float" },
+    metalness: { default: 0, type: "float" },
   },
 
   updateMaterial: function (element, sides, multiplier) {
@@ -26,7 +26,6 @@ AFRAME.registerComponent("room", {
   init: function () {
     // Walls.
     this.walls = document.createElement("a-cylinder");
-    this.walls.setAttribute("material", "color", "white");
     this.walls.setAttribute("material", "side", "double");
     this.updateMaterial(this.walls, this.data.sides);
     this.walls.setAttribute("radius", this.data.radius);

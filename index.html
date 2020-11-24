@@ -29,15 +29,21 @@
         groundColor2: #fff">
     <a-assets>
       <img id="triangle" src="textures/triangle.png" />
-      <img id="square" src="textures/square.png"/>
+      <img id="square" src="textures/square.png" />
       <img id="rombus" src="textures/rombus.png" />
       <img id="hexagon" src="textures/hexagon.png" />
       <img id="circle" src="textures/circle.png" />
     </a-assets>
 
-    <a-entity light="type: ambient; color: #CCC"></a-entity>
-    <a-entity light="type: directional; color: #EEE; intensity: 0.4" position="-0.7 -0.4 1"></a-entity>
-
+    <a-entity light="type: ambient;
+                     intensity: 0.4">
+    </a-entity>
+    <a-entity light="type: point;
+                     intensity: 0.9;
+                     distance: 50;
+                     decay: 10;"
+              position="0 2 0">
+    </a-entity>
 
     <a-entity room></a-entity>
 
