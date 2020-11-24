@@ -66,7 +66,7 @@ AFRAME.registerComponent("color-picker", {
 
     this.menuItems.push(texturePicker("#triangle", 4));
     this.menuItems.push(texturePicker("#square", 4));
-    this.menuItems.push(texturePicker("#rombus", 4));
+    this.menuItems.push(texturePicker("#rombus", 3));
     this.menuItems.push(texturePicker("#hexagon", 6));
     this.menuItems.push(texturePicker("#circle", 4));
 
