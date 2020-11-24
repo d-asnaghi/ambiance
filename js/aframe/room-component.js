@@ -6,18 +6,21 @@ AFRAME.registerComponent("room", {
     repeat: { default: 1, type: "int" },
     texture: { default: "" },
     normal: { default: "" },
-    roughness: { default: 0.4, type: "float" },
+    roughness: { default: 0.6, type: "float" },
     metalness: { default: 0.2, type: "float" },
   },
 
-  updateMaterial: function (element, sides) {
-    let repeat = { x: this.data.repeat * sides, y: this.data.repeat };
-    element.setAttribute("material", "src", this.data.texture);
-    element.setAttribute("material", "repeat", repeat);
-    element.setAttribute("material", "normalMap", this.data.normal);
-    element.setAttribute("material", "normalTextureRepeat", repeat);
-    element.setAttribute("material", "metalness", this.data.metalness);
-    element.setAttribute("material", "roughness", this.data.roughness);
+  updateMaterial: function (element, sides, multiplier) {
+    multiplier = multiplier || 1;
+    let repeat = { x: this.data.repeat * sides * multiplier, y: this.data.repeat * multiplier };
+    element.setAttribute("material", {
+      src: this.data.texture,
+      repeat: repeat,
+      normalMap: this.data.normal,
+      normalTextureRepeat: repeat,
+      metalness: this.data.metalness,
+      roughness: this.data.roughness,
+    });
   },
 
   init: function () {
@@ -69,7 +72,7 @@ AFRAME.registerComponent("room", {
 
     // Update the material of the room.
     this.updateMaterial(this.walls, this.data.sides);
-    this.updateMaterial(this.floor, 1);
-    this.updateMaterial(this.roof, 1);
+    this.updateMaterial(this.floor, 1, 2);
+    this.updateMaterial(this.roof, 1, 2);
   },
 });
