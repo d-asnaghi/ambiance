@@ -64,11 +64,11 @@ AFRAME.registerComponent("color-picker", {
     this.menuItems.push(sidePicker(6));
     this.menuItems.push(sidePicker(8));
 
-    this.menuItems.push(texturePicker("#triangle", 2));
-    this.menuItems.push(texturePicker("#square", 2));
-    this.menuItems.push(texturePicker("#rombus", 1));
-    this.menuItems.push(texturePicker("#hexagon", 3));
-    this.menuItems.push(texturePicker("#circle", 2));
+    this.menuItems.push(texturePicker("#triangle", 4));
+    this.menuItems.push(texturePicker("#square", 4));
+    this.menuItems.push(texturePicker("#rombus", 4));
+    this.menuItems.push(texturePicker("#hexagon", 6));
+    this.menuItems.push(texturePicker("#circle", 4));
 
     this.menuItems.push(colorPicker("#264653"));
     this.menuItems.push(colorPicker("#2a9d8f"));
