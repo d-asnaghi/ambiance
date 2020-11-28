@@ -65,6 +65,10 @@ AFRAME.registerComponent("menu", {
     this.menu.push(this.colorPicker("#e9c46a"));
     this.menu.push(this.colorPicker("#f4a261"));
     this.menu.push(this.colorPicker("#e76f51"));
+
+    this.menu.push(this.picker(() => {
+      this.painter.components.painter.clear();
+    }));
   },
 
   tick: function () {
