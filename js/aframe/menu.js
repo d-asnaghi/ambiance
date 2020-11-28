@@ -1,7 +1,10 @@
 AFRAME.registerComponent("menu", {
   dependencies: ["hand-tracking-mesh"],
 
-  picker: function (object, action) {
+  picker: function (action) {
+    let object = document.createElement("a-cylinder");
+    object.setAttribute("radius", 0.02);
+    object.setAttribute("height", 0.005);
     object.addEventListener("raycaster-intersected", (evt) => {
       object.setAttribute("scale", "1.2 1.2 1.2");
       action();
@@ -13,15 +16,8 @@ AFRAME.registerComponent("menu", {
     return object;
   },
 
-  actionPicker: function (action) {
-    let shape = document.createElement("a-cylinder");
-    shape.setAttribute("radius", 0.02);
-    shape.setAttribute("height", 0.005);
-    return this.picker(shape, action);
-  },
-
   texturePicker: function (texture, repeat) {
-    let picker = this.actionPicker(() => {
+    let picker = this.picker(() => {
       this.room.setAttribute("room", "repeat", repeat);
       this.room.setAttribute("room", "texture", texture);
     });
@@ -30,7 +26,7 @@ AFRAME.registerComponent("menu", {
   },
 
   sidePicker: function (sides) {
-    let picker = this.actionPicker(() => {
+    let picker = this.picker(() => {
       this.room.setAttribute("room", "sides", sides);
     });
     picker.setAttribute("segments-radial", sides);
@@ -38,7 +34,7 @@ AFRAME.registerComponent("menu", {
   },
 
   colorPicker: function (color) {
-    let picker = this.actionPicker(() => {
+    let picker = this.picker(() => {
       this.painter.setAttribute("painter", "color", color);
     });
     picker.setAttribute("material", "color", color);
@@ -69,10 +65,6 @@ AFRAME.registerComponent("menu", {
     this.menu.push(this.colorPicker("#e9c46a"));
     this.menu.push(this.colorPicker("#f4a261"));
     this.menu.push(this.colorPicker("#e76f51"));
-
-    this.menu.push(this.actionPicker(() => {
-      this.el.sceneEl.removeChild(this.menu[0]);
-    }));
   },
 
   tick: function () {
