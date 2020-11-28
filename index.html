@@ -4,6 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
   <title>Ambiance</title>
   <script src="js/aframe-master.js"></script>
   <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
@@ -11,7 +15,7 @@
   <script src="js/aframe/hand-tracking-gestures-mesh.js"></script>
   <script src="js/TubePainter.js"></script>
   <script src="js/aframe/painter.js"></script>
-  <script src="js/aframe/color-picker.js"></script>
+  <script src="js/aframe/menu.js"></script>
   <script src="js/aframe/finger-raycaster.js"></script>
   <script src="js/aframe/room-component.js"></script>
 </head>
@@ -47,7 +51,7 @@
 
     <a-entity room></a-entity>
 
-    <a-entity id="leftHand" class="hand" color-picker hand-tracking-mesh="hand: left"></a-entity>
+    <a-entity id="leftHand" class="hand" menu hand-tracking-mesh="hand: left"></a-entity>
     <a-entity class="hand" finger-raycaster painter hand-tracking-mesh="hand: right" hand-tracking-gestures-mesh>
     </a-entity>
   </a-scene>
