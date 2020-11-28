@@ -1,10 +1,10 @@
 AFRAME.registerComponent('painter', {
 
   schema: {
-      color: {
-        default: 'white',
-        type: 'color'
-      }
+    color: {
+      default: 'white',
+      type: 'color'
+    }
   },
 
   init: function () {
@@ -47,6 +47,16 @@ AFRAME.registerComponent('painter', {
       painter.lineTo(this.cursor);
       painter.update();
     }
-  }
+  },
+
+  clear: function () {
+    this.el.sceneEl.object3D.remove(this.painter.mesh);
+    this.painter = new TubePainter();
+    this.painter.setSize(0.5);
+    this.painter.setColor(new THREE.Color(this.data.color));
+    this.cursor = new THREE.Vector3();
+    this.userData = {};
+    this.el.sceneEl.object3D.add(this.painter.mesh);
+  },
 
 });
